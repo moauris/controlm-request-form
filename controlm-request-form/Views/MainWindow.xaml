@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:controlm_request_form"
+        xmlns:viewmodels="clr-namespace:controlm_request_form.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="5.85in" Width="8.3in"
         Background="Bisque">
     <!--Window Size is half height A4-->
     <Window.Resources>
+        <viewmodels:MainWindowViewModel x:Key="viewmodel"/>
         <Style x:Key="FormLabel" TargetType="{x:Type Label}">
             <Setter Property="Grid.ColumnSpan" Value="2"/>
             <Setter Property="Grid.RowSpan" Value="1"/>
@@ -33,7 +35,7 @@
             <Setter Property="FontFamily" Value="Consolas"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid DataContext="{StaticResource viewmodel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
@@ -66,34 +68,47 @@
                    TextAlignment="Center" Margin="10" FontSize="34">
             Control-M Agent Request Form
         </TextBlock>
-        <Label  Grid.Row="2" Grid.Column="0" Style="{StaticResource FormLabel}">
-            Request Date
+        <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource FormLabel}">
+            Ticket No.
         </Label>
-        <DatePicker Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" FontSize="18" 
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
-                    >
-        </DatePicker>
-        <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource FormLabel}">
-            Applicant
-        </Label>
-        <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource FormTextBox}">
-            
-        </TextBox>
-        <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource FormLabel}">
-            Approver
-        </Label>
-        <TextBox Grid.Row="4" Grid.Column="2" Style="{StaticResource FormTextBox}">
+        <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource FormTextBox}"
+                 Text="{Binding Path=TicketNumber, Mode=TwoWay}">
 
         </TextBox>
-        <ListBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="9"
+        <Label  Grid.Row="3" Grid.Column="0" Style="{StaticResource FormLabel}">
+            Request Date
+        </Label>
+        <DockPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3">
+            <DatePicker DockPanel.Dock="Right" FontSize="18"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    SelectedDate="{Binding Path=DateRequested, Mode=TwoWay}">
+            </DatePicker>
+        </DockPanel>
+        
+
+        <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource FormLabel}">
+            Applicant
+        </Label>
+        <TextBox Grid.Row="4" Grid.Column="2" Style="{StaticResource FormTextBox}"
+                 Text="{Binding Path=ApplicantPIC, Mode=TwoWay}">
+            
+        </TextBox>
+        <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource FormLabel}">
+            Approver
+        </Label>
+        <TextBox Grid.Row="5" Grid.Column="2" Style="{StaticResource FormTextBox}"
+                 Text="{Binding Path=ApproverPIC, Mode=TwoWay}"
+                 MouseDoubleClick="OnPICTextboxDoubleClicked">
+        </TextBox>
+        <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="8"
                  Margin="10 10 30 10">
-            <ListBoxItem>
+            <ListBoxItem Selected="ListBoxItem_Selected">
                 <!--Should be M/Agent Displayer-->
                 <Grid Height="80" Width="720">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
@@ -101,25 +116,46 @@
                     </Grid.RowDefinitions>
                     <Label Style="{StaticResource AgentLabel}"
                            HorizontalContentAlignment="Right"
-                           Grid.Row="0" Grid.Column="0">
+                           Grid.Row="0" Grid.Column="1">
                         testag0101
                     </Label>
                     <Label Style="{StaticResource AgentLabel}"
-                           Grid.Row="0" Grid.Column="1">
+                           Grid.Row="0" Grid.Column="2">
                         .mydomain.com.cn
                     </Label>
                     <Label Style="{StaticResource AgentLabel}"
-                           Grid.Row="0" Grid.Column="2">
+                           Grid.Row="1" Grid.Column="2">
                         Windows Server 2016 R2
                     </Label>
                     <Label Style="{StaticResource AgentLabel}"
                            HorizontalContentAlignment="Right"
-                           Grid.Row="1" Grid.Column="0">
+                           Grid.Row="1" Grid.Column="1">
                         controlmserver1
+                    </Label>
+                    <Label Style="{StaticResource AgentLabel}"
+                           HorizontalContentAlignment="Center"
+                           Grid.Row="0" Grid.Column="0"
+                           Grid.RowSpan="2">
+                        Register
                     </Label>
                 </Grid>
             </ListBoxItem>
         </ListBox>
+        <Label Grid.Row="2" Grid.Column="5" Style="{StaticResource FormLabel}">
+            Special Comment
+        </Label>
+        <TextBox Grid.Row="3" Grid.Column="5" 
+                 Grid.RowSpan="3" Grid.ColumnSpan="5"
+                 Margin="4 4 30 4"
+                 Style="{StaticResource FormTextBox}"
+                 HorizontalContentAlignment="Left"
+                 VerticalContentAlignment="Top"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Auto"
+                 TextWrapping="Wrap"
+                 Text="{Binding Path=SpecialComment, Mode=TwoWay}">
+
+        </TextBox>
     </Grid>
     
 </Window>

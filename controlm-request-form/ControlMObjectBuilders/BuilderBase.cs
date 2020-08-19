@@ -17,8 +17,8 @@ namespace controlm_request_form.ControlMObjectBuilders
         #endregion
         #region Methods
         public abstract bool Validate();
-        public abstract void Populate<Enum>(Enum Property, object Value);
-        public abstract bool TryBuild();
+        public abstract void Populate(string Property, object Value);
+        public abstract bool TryBuild(out ControlMObjectBase controlMObject);
         #endregion
         #region Events
         

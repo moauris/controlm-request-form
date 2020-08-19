@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using controlm_request_form.ControlMObjectBuilders;
-using controlm_request_form.ControlMObject;
+using controlm_request_form.BaseObjects;
 using System.Globalization;
 
 namespace controlm_request_form.Models
 {
     
-    public class Request : ControlMBaseObject
+    public class Request : ControlMObjectBase
     {
         #region Constructors
 
@@ -34,17 +34,17 @@ namespace controlm_request_form.Models
             set { dateRequested = value; }
         }
 
-        private PersonInCharge applicantPIC;
+        private string applicantPIC;
 
-        public PersonInCharge ApplicantPIC
+        public string ApplicantPIC
         {
             get { return applicantPIC; }
             set { applicantPIC = value; }
         }
 
-        private PersonInCharge approverPIC;
+        private string approverPIC;
 
-        public PersonInCharge ApproverPIC
+        public string ApproverPIC
         {
             get { return approverPIC; }
             set { approverPIC = value; }
@@ -76,36 +76,17 @@ namespace controlm_request_form.Models
 
     }
 
-    public struct PersonInCharge
-    {
-        #region Constructors
-
-        #endregion
-        #region Properties
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string EMailAddress { get; set; }
-        #endregion
-        #region Methods
-        public override string ToString()
-        {
-            return FirstName + " " + LastName;
-        }
-        #endregion
-        #region Events
-
-        #endregion
-
-
-    }
-
     class RequestBuilder : BuilderBase
     {
         #region Constructors
 
         #endregion
         #region Properties
-
+        private string ticketNumber;
+        private DateTime dateRequested;
+        private string applicantPIC;
+        private string approverPIC;
+        private string comment;
         #endregion
         #region Methods
 
@@ -113,12 +94,8 @@ namespace controlm_request_form.Models
         #region Events
 
         #endregion
-        public override void Populate<RequestProperties>(RequestProperties Property, object Value)
-        {
-            throw new NotImplementedException();
-        }
 
-        public override ControlMBaseObject TryBuild()
+        public override bool TryBuild(out ControlMObjectBase controlMObject)
         {
             throw new NotImplementedException();
         }
@@ -127,10 +104,51 @@ namespace controlm_request_form.Models
         {
             throw new NotImplementedException();
         }
+
+        public static Request BuildSample() =>
+            new Request
+            {
+                DateRequested = DateTime.Today
+                ,
+                ApplicantPIC = "mchenf@icloud.com"
+                ,
+                ApproverPIC = "BabyCat@cute.cute.com"
+                ,
+                SpecialComment = "Meow Meow Moew"
+                ,
+                TicketNumber = "INC00000132233"
+                ,
+                Requests = new ObservableCollection<MAgentRequest> { new MAgentRequest() }
+            };
+
+        public override void Populate(string Property, object Value)
+        {
+            switch (Property)
+            {
+                case "TicketNumber":
+                    ticketNumber = (string)Value;
+                    break;
+                case "DateRequested":
+                    dateRequested = (DateTime)Value;
+                    break;
+                case "ApplicantPIC":
+                    applicantPIC = (string)Value;
+                    break;
+                case "ApproverPIC":
+                    approverPIC = (string)Value;
+                    break;
+                case "SpecialComment":
+                    comment = (string)Value;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
+    
 
     public enum RequestProperties
-    {
+    {   
         TicketNumber,
         DateRequested,
         ApplicantPIC,

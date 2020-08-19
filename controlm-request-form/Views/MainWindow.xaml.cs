@@ -1,4 +1,5 @@
-﻿using System;
+﻿using controlm_request_form.Views;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -28,6 +29,16 @@ namespace controlm_request_form
 #endif
             InitializeComponent();
         }
-        
+
+        private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnPICTextboxDoubleClicked(object sender, MouseButtonEventArgs e)
+        {
+            var window = new PicPicker();
+            window.Show();
+        }
     }
 }

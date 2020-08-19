@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace controlm_request_form.BaseObjects
 {
-    public abstract class ControlMObjectBase
+    public interface ControlMObjectBase
     {
     }
 }
