@@ -16,6 +16,22 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
+        <Style x:Key="FormTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Grid.ColumnSpan" Value="3"/>
+            <Setter Property="Grid.RowSpan" Value="1"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0 0 0 2"/>
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+        <Style x:Key="AgentLabel" TargetType="{x:Type Label}">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -54,19 +70,26 @@
             Request Date
         </Label>
         <DatePicker Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" FontSize="18" 
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center">
+                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"
+                    >
         </DatePicker>
-        <Label  Grid.Row="3" Grid.Column="0" Style="{StaticResource FormLabel}">
+        <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource FormLabel}">
             Applicant
         </Label>
-
-        <Label  Grid.Row="4" Grid.Column="0" Style="{StaticResource FormLabel}">
+        <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource FormTextBox}">
+            
+        </TextBox>
+        <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource FormLabel}">
             Approver
         </Label>
+        <TextBox Grid.Row="4" Grid.Column="2" Style="{StaticResource FormTextBox}">
+
+        </TextBox>
         <ListBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="9"
                  Margin="10 10 30 10">
             <ListBoxItem>
-                <Grid Height="80" Width="735">
+                <!--Should be M/Agent Displayer-->
+                <Grid Height="80" Width="720">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -76,6 +99,24 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
+                    <Label Style="{StaticResource AgentLabel}"
+                           HorizontalContentAlignment="Right"
+                           Grid.Row="0" Grid.Column="0">
+                        testag0101
+                    </Label>
+                    <Label Style="{StaticResource AgentLabel}"
+                           Grid.Row="0" Grid.Column="1">
+                        .mydomain.com.cn
+                    </Label>
+                    <Label Style="{StaticResource AgentLabel}"
+                           Grid.Row="0" Grid.Column="2">
+                        Windows Server 2016 R2
+                    </Label>
+                    <Label Style="{StaticResource AgentLabel}"
+                           HorizontalContentAlignment="Right"
+                           Grid.Row="1" Grid.Column="0">
+                        controlmserver1
+                    </Label>
                 </Grid>
             </ListBoxItem>
         </ListBox>
