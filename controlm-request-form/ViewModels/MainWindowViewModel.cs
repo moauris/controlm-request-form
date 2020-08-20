@@ -39,7 +39,7 @@ namespace controlm_request_form.ViewModels
             }
         }
 
-        private DateTime dateRequested;
+        private DateTime dateRequested = DateTime.Today;
 
         public DateTime DateRequested
         {

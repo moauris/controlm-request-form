@@ -1,4 +1,5 @@
-﻿using controlm_request_form.Views;
+﻿using controlm_request_form.ViewModels;
+using controlm_request_form.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,7 +29,15 @@ namespace controlm_request_form
             Debug.Print("Starting App with Debug mode");
 #endif
             InitializeComponent();
+
+            ViewModel = Resources["viewmodel"] as MainWindowViewModel;
+            if (ViewModel == null)
+            {
+                throw new NullReferenceException("ViewModel can't be null");
+            }
         }
+
+        private MainWindowViewModel ViewModel = null;
 
         private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
@@ -39,6 +48,16 @@ namespace controlm_request_form
         {
             var window = new PicPicker();
             window.Show();
+        }
+
+        private void CanExecute_AddCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+        }
+
+        private void Execute_AddCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:controlm_request_form"
         xmlns:viewmodels="clr-namespace:controlm_request_form.ViewModels"
+        xmlns:commands="clr-namespace:controlm_request_form.Commands"
         mc:Ignorable="d"
         Title="MainWindow" Height="5.85in" Width="8.3in"
         Background="Bisque">
     <!--Window Size is half height A4-->
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static commands:RoutedCommands.AddCommand}"
+                        CanExecute="CanExecute_AddCommand"
+                        Executed="Execute_AddCommand"/>
+    </Window.CommandBindings>
     <Window.Resources>
         <viewmodels:MainWindowViewModel x:Key="viewmodel"/>
         <Style x:Key="FormLabel" TargetType="{x:Type Label}">
@@ -100,7 +106,7 @@
                  Text="{Binding Path=ApproverPIC, Mode=TwoWay}"
                  MouseDoubleClick="OnPICTextboxDoubleClicked">
         </TextBox>
-        <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="8"
+        <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="7"
                  Margin="10 10 30 10">
             <ListBoxItem Selected="ListBoxItem_Selected">
                 <!--Should be M/Agent Displayer-->
@@ -156,6 +162,10 @@
                  Text="{Binding Path=SpecialComment, Mode=TwoWay}">
 
         </TextBox>
+        <Button x:Name="btnSerialize" Grid.Column="1" Grid.Row="14" Grid.ColumnSpan="2" Margin="6"
+                Command="{x:Static commands:RoutedCommands.AddCommand}">
+            Serialize Object
+        </Button>
     </Grid>
     
 </Window>
